@@ -11,6 +11,11 @@ export function Home() {
 
   async function handleSubmit(ev: FormEvent<HTMLFormElement>) {
     ev.preventDefault()
+    if (name.trim() === '' || room.trim() === '') {
+      displayError.current!.innerText = 'Insira nome e sala'
+      displayError.current!.style.visibility = 'visible'
+      return
+    }
     
     const result = await fetch(`${BASE_URL}/${room}`)
     const data = await result.json()
@@ -30,8 +35,8 @@ export function Home() {
       <div className={styles.content}>
         <h1>CONVERSE</h1>
         <form autoComplete="off" className={styles.formLogin} onSubmit={handleSubmit}>
-          <input type="text" name="name" id="name" placeholder="Seu nome" value={name} onChange={(ev) => setName(ev.target.value)}/>
-          <input type="text" name="room" id="room" placeholder="Nome da sala" value={room} onChange={(ev) => setRoom(ev.target.value)}/>
+          <input type="text" name="name" id="name" placeholder="Seu nome" value={name} onChange={(ev) => setName(ev.target.value)} required/>
+          <input type="text" name="room" id="room" placeholder="Nome da sala" value={room} onChange={(ev) => setRoom(ev.target.value)} required/>
           <span className={styles.message} ref={displayError}>.</span>
           <input type="submit" value="ENTRAR" />
         </form>

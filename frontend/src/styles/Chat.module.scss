@@ -4,17 +4,85 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100vh;
+  height: auto;
+  min-height: 100vh;
   background-color: $white;
+}
+
+.chatHeader {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  top: 0;
+  height: 10vh;
+  min-height: 50px;
+  max-height: 75px;
+  background-color: $medium-blue;
+  width: 100%;
+
+  div {
+    display: flex;
+    align-items: center;
+
+    span > h1 {
+      visibility: hidden;
+    }
+
+    img {
+      visibility: hidden;
+      width: 50px;
+    }
+  }
 }
 
 .messages {
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
   background-color: $white;
+  padding: 80px 0px 80px;
+  word-wrap: break-word;
+  list-style-type: none;
+
+  pre {
+    white-space: pre-wrap;
+    max-width: 70vw;
+    margin-top: 10px;
+  }
+
+  .isMe {
+    width: auto;
+    margin-left: auto;
+    margin-right: 10px;
+    padding: 15px;
+    word-wrap: break-word;
+    color: black;
+    background-color: $gray;
+    border-radius: 10px 10px 0px 10px;
+  }
+
+  .isOther {
+    width: auto;
+    margin-right: auto;
+    margin-left: 10px;
+    padding: 15px;
+    word-wrap: break-word;
+    color: black;
+    background-color: $blue;
+    border-radius: 10px 10px 10px 0px;
+  }
+}
+
+body::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
 }
 
 .fieldMessage {
-  width: 95%;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  width: 97%;
   margin: 0 auto;
   padding: 10px 15px;
   font-size: 1.2rem;
@@ -22,17 +90,24 @@
   background-color: #ddd;
   border: 1px solid $blue;
   border-radius: 4px;
-  transform: translateY(-25px);
+  box-shadow: 10px 15px 0px 20px $white;
+  transform: translate(-50%, -15px);
 
   &:focus {
     outline: 1px solid $medium-blue;
   }
 }
 
+.fieldMessage::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
 .sendButton {
-  position: absolute;
-  right: 4%;
-  bottom: 33px;
+  position: fixed;
+  right: 2%;
+  bottom: 23px;
   font-size: 2rem;
   cursor: pointer;
+  width: 50px;
 }
