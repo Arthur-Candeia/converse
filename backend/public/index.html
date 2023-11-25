@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Local</title>
+</head>
+<body>
+  <h1>Local</h1>
+  <script src="/socket.io/socket.io.js"></script>
+<script>
+  const socket = io();
+  // socket.on('connect', () => alert('conexão'))
+  socket.emit('room', {room: 'meu-quarto', name: 'Arthur'})
+  socket.emit('message', {room: 'meu-quarto', message: 'mensagem'})
+  socket.on('meu-quarto', (message) => console.log('message'))
+</script>
+</body>
+</html>
