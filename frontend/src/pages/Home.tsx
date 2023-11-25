@@ -17,7 +17,7 @@ export function Home() {
       return
     }
     
-    const result = await fetch(`${BASE_URL}/${room}`)
+    const result = await fetch(`${BASE_URL}/rooms/${room}`)
     const data = await result.json()
     if (Object.prototype.hasOwnProperty.call(data, 'err')) {
       displayError.current!.innerText = data.err

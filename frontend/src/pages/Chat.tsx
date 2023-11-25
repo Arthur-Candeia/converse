@@ -4,10 +4,11 @@ import { IoIosSend } from "react-icons/io";
 import { io } from 'socket.io-client'
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/Chat.module.scss'
+import BASE_URL from '../api/BASE_URL';
 
 export function Chat() {
   const [message, setMessage] = useState('')
-  const [socket] = useState(() => io('http://localhost:3000'))
+  const [socket] = useState(() => io(BASE_URL))
   const [messages, setMessages] = useState<{message: string, isMe: boolean}[]>([])
   const imgUserRef = useRef<HTMLImageElement>(null)
   const personRef = useRef<HTMLHeadingElement>(null)
