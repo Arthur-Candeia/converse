@@ -41,10 +41,17 @@
   width: 80%;
   min-width: 200px;
 
-  input {
+  input, label {
     padding: 10px 15px;
     border: 1px solid $blue;
     border-radius: 4px;
+  }
+
+  label {
+    cursor: pointer;
+    min-width: 50%;
+    max-width: 90%;
+    word-wrap: break-word;
   }
 
   input[type="text"] {

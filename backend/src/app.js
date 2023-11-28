@@ -9,8 +9,8 @@ const path = require('path')
 app.use(cors())
 app.use('/', express.static(path.join(__dirname, '..', 'public')))
 app.use('/assets', express.static(path.join(__dirname, '..', 'public', 'assets')))
+app.get('/chat', (request, response) => response.sendFile(path.join(__dirname, '..', 'public', 'index.html')))
 
-app.get('/assets', (request, response) => response.sendFile(path.join(__dirname, '..', 'public', 'index.html')))
 
 app.get('/rooms/:room', (request, response) => {
   const {room} = request.params
@@ -23,9 +23,9 @@ try {
   socketio.on('connection', (socket) => {
     console.log(socket.id)
   
-    socket.on('room', ({room, name}) => {
+    socket.on('room', ({room, name, img}) => {
       if (rooms[room]?.persons?.length == 2 || !room?.trim()) return
-      rooms[room] = {persons: [...(rooms[room]?.persons ?? []), socket.id], names: [...(rooms[room]?.names ?? []), name]}
+      rooms[room] = {persons: [...(rooms[room]?.persons ?? []), socket.id], names: [...(rooms[room]?.names ?? []), {name, img, id: socket.id}]}
       socketio.emit(`personInRoom${room}`, rooms[room].names)
     })
   
@@ -42,6 +42,8 @@ try {
       for (const room in rooms) {
         if (rooms[room].persons.includes(socket.id)) {
           rooms[room].persons = rooms[room].persons.filter((person) => person !== socket.id)
+          rooms[room].names = rooms[room].names.filter((element) => element.id !== socket.id)
+          socketio.emit(`personInRoom${room}`, rooms[room].names)
         }
         if (rooms[room].persons.length === 0) delete rooms[room]
       }
